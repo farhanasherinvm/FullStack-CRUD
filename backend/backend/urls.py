@@ -14,11 +14,14 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from django.http import HttpResponseRedirect
 from django.contrib import admin
 from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('accounts/', include('account.urls', namespace='accounts')),
+    path('accounts/', include('account.urls', namespace='account')),
     # path('tasks/', include('tasks.urls', namespace='tasks')),
+    path('tasks/', include('tasks.urls')),
+     path('', lambda request: HttpResponseRedirect('/api/tasks/')),
 ]

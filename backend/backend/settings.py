@@ -25,8 +25,8 @@ SECRET_KEY = 'django-insecure-soxu1tia++*q$juw59$*i%z9#+$*%9+l$cn-s2qq8kdw5nlk)9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
 
 # Application definition
 
@@ -45,12 +45,13 @@ INSTALLED_APPS = [
 
 ]
 REST_FRAMEWORK={
-    'DEFULT_AUTHENTICATION_CLASSES':(
+    'DEFAULT_AUTHENTICATION_CLASSES':(
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
 }
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -58,10 +59,23 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
+    
 
 ]
 CORS_ALLOW_ALL_ORIGINS = True  # Allow frontend to connect (for development)
+CORS_ALLOW_CREDENTIALS = True
+CSRF_TRUSTED_ORIGINS = [
+'http://localhost:8000'
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000/",
+    'http://localhost:3000/',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000/',
+]
 
 ROOT_URLCONF = 'backend.urls'
 

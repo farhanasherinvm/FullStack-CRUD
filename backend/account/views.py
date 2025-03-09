@@ -10,16 +10,16 @@ from rest_framework_simplejwt.views import TokenObtainPairView
 
 @api_view(['POST'])
 def register_user(request):
-    sterializer=RegisterSerializer(data=request.data)
-    if sterializer.is_valid():
-        user=sterializer.save()
+    serializer=RegisterSerializer(data=request.data)
+    if serializer.is_valid():
+        user=serializer.save()
         refresh=RefreshToken.for_user(user)
         return Response({
-            'massage':"user created succesfully!",
+            'message': "User created successfully!",
             'refresh':str(refresh),
             'access':str(refresh.access_token)
         },status.HTTP_201_CREATED)
-    return Response(sterializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class CostumTokenObtainPairView(TokenObtainPairView):
+class CustomTokenObtainPairView(TokenObtainPairView):
     pass
